@@ -2,15 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import ExpenceList from "./components/ExpenceList";
 import ExpenceFilter from "./components/ExpenceFilter";
+import ExpenceForm from "./components/ExpenceForm";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expenses, setExpenses] = useState([
     { id: 1, description: "aaa", amount: 10, category: "Utilities" },
-    { id: 2, description: "aaa", amount: 10, category: "Utilities" },
-    { id: 3, description: "aaa", amount: 10, category: "Utilities" },
-    { id: 4, description: "aaa", amount: 10, category: "Utilities" },
-    { id: 5, description: "aaa", amount: 10, category: "Utilities" },
   ]);
 
   const onDelete = (expenceId: number) => {
@@ -31,6 +28,13 @@ function App() {
   return (
     <>
       <h1>Expence Tracker</h1>
+      <div className="mb-5">
+        <ExpenceForm
+          onSubmit={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        />
+      </div>
       <div className="div mb-3">
         <ExpenceFilter
           onSelectCategory={(category) => onSelectCategory(category)}
